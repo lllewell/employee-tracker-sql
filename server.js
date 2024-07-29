@@ -18,7 +18,7 @@ console.log('Connected to the courses_db database!')
 pool.connect();
 
 const viewAllDepartments = () => {
-    return pool.query('SELECT id, name FROM departments');
+    return pool.query('SELECT * FROM departments');
 };
 
 const viewAllRoles = () => {
@@ -60,6 +60,10 @@ prompt([
   }
 ])
   .then((answer) => {
-    console.log(answer.initial);
+    if (answer.initial === 'View All Departments'){
+      return viewAllDepartments()
+    } else if (answer.inital === 'View All Roles'){
+      return viewAllRoles()
+    }
   })
-  .then()
+  .then(logTable)

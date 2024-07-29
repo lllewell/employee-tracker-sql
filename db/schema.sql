@@ -17,12 +17,13 @@ CREATE TABLE role (
   REFERENCES departments (id)
 );
 
-CREATE TABLE employee (
+CREATE TABLE employees (
   id SERIAL PRIMARY KEY,
   first_name VARCHAR(30) UNIQUE NOT NULL,
   last_name VARCHAR(30) UNIQUE NOT NULL,
   role_id INTEGER NOT NULL,
   manager_id INTEGER,
+  FOREIGN KEY (role_id) REFERENCES role (id)
   -- Not sure how to write this with two foreign keys and a self reference?
-  FOREIGN KEY (role_id, manager_id) REFERENCES role, employee (id)
+  -- FOREIGN key (manager_id) REFERENCES employee
 );
