@@ -1,14 +1,6 @@
 // import inquirer, build functions, and prompts here
-const express = require('express');
-const { createPromptModule } = require('inquirer');
+const { prompt } = require('inquirer');
 const { Pool } = require('pg');
-
-const PORT = process.env.PORT || 3001;
-const app = express();
-
-// Express middleware
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
 
 // Connect to database
 const pool = new Pool(
@@ -60,3 +52,15 @@ const updateEmployee = () => {
 const logTable = (result) => {
   console.table(result.rows);
 };
+
+prompt([
+  {
+    type:
+    name:
+    message:
+  },
+])
+  .then((answers) => {
+    console.log(answers);
+  })
+  .then()
