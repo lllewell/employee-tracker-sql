@@ -25,5 +25,5 @@ CREATE TABLE employees (
   manager_id INTEGER,
   FOREIGN KEY (role_id) REFERENCES role (id)
   -- Not sure how to write this with two foreign keys and a self reference?
-  -- FOREIGN key (manager_id) REFERENCES employee
+  FOREIGN key (manager_id) REFERENCES employee (id)
 );
