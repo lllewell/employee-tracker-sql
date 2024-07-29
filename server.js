@@ -22,15 +22,15 @@ const viewAllDepartments = () => {
 };
 
 const viewAllRoles = () => {
-  return pool.query('SELECT id, title, salary, department_id FROM role');
+  return pool.query('SELECT * FROM role');
 };
 
 const viewAllEmployees = () => {
-  return pool.query('SELECT id, first_name, last_name, role_id, manager_id FROM employee');
+  return pool.query('SELECT * FROM employees');
 };
 
 const addDepartment = (name) => {
-  return pool.query(`'INSERT INTO departments (name) VALUES $1`, [name]);
+  return pool.query(`INSERT INTO departments (name) VALUES $1`, [name]);
 };
 
 const addRole = (name, salary, department_id) => {
