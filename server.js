@@ -1,9 +1,9 @@
 // import inquirer, build functions, and prompts here
 const { prompt } = require('inquirer');
-const { Pool } = require('pg');
+const { Client } = require('pg');
 
 // Connect to database
-const pool = new Pool(
+const client = new Client(
   {
     // Enter PostgreSQL username
     user: 'postgres',
@@ -11,49 +11,70 @@ const pool = new Pool(
     password: '',
     host: 'localhost',
     database: 'employees_db'
-},
-console.log('Connected to the courses_db database!')
+  },
+  console.log('Connected to the courses_db database!')
 )
 
-pool.connect();
+client.connect();
 
 const viewAllDepartments = () => {
-    return pool.query('SELECT * FROM departments');
+  return client.query('SELECT * FROM departments');
 };
 
 // const selectViewAllDepartments = () => {
-//   const question = {
+//   const type = {
 //     type: 'list',
 //     message: 'What would you like to do?',
 //     name: 'department',
 //     choices: ['View All Departments', 'View All Roles', 'View All Employees', 'Add A Department', 'Add A Role', 'Add An Employee', 'Updated An Employee'],
 //   };
-//   return prompt(question);
+//   return prompt(type);
 // }
 
 const viewAllRoles = () => {
-  return pool.query('SELECT * FROM role');
+  return client.query('SELECT * FROM roles');
 };
 
 const viewAllEmployees = () => {
-  return pool.query('SELECT * FROM employees');
+  return client.query('SELECT * FROM employees');
 };
 
-const addDepartment = (name) => {
-  return pool.query(`INSERT INTO departments (name) VALUES $1`, [name]);
+const addDepartment = () => {
+  return prompt({
+    message: 'What is the name of your department?',
+    name: 'name',
+  }).then((answer) => {
+    return client.query(
+      `INSERT INTO departments (name) VALUES ($1)`,
+      [answer.name],
+    );
+  });
 };
 
-const addRole = (name, salary, department_id) => {
-  return pool.query(`INSERT INTO role (name, salary, department_id) VALUES $1`, [name, salary, department_id]);
+const addRole = () => {
+  return prompt({
+    message: 'What role would you like to add?',
+    name: 'role',
+  },
+  {
+    message: 'What is the salary for this role?',
+    name: 'salary',
+  },
+  {
+    message: 'What is the department number for this role?',
+    name: 'department'
+  }).then((answer) => {
+    return client.query(`INSERT INTO roles (title, salary, department_id) VALUES ($1)`, [answer.role, answer.salary, answer.department]);
+  })
 };
 
 const addEmployee = (employee) => {
-  return pool.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES $1`, [first_name, last_name, role_id, manager_id]);
+  return client.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES $1`, [first_name, last_name, role_id, manager_id]);
 };
 
 const updateEmployee = () => {
-  let updatedRow = (answers.role_id)
-  return pool.query(`UPDATE FROM employee WHERE id = $1`, [updatedRow]);
+  let updatedRow = (answer.role_id)
+  return client.query(`UPDATE FROM employee WHERE id = $1`, [updatedRow]);
 
 };
 
@@ -61,23 +82,41 @@ const logTable = (result) => {
   console.table(result.rows);
 };
 
-prompt([
-  {
-    type: 'list',
-    message: 'What would you like to do?',
-    name: 'question',
-    choices: ['View All Departments', 'View All Roles', 'View All Employees', 'Add A Department', 'Add A Role', 'Add An Employee', 'Updated An Employee'],
-  }
-])
-  .then((answer) => {
-    if (answer.question === 'View All Departments'){
-      return viewAllDepartments()
-    } else if (answer.question === 'View All Roles'){
-      return viewAllRoles()
-    } else if (answer.question === 'View All Employees'){
-      return viewAllEmployees()
+const init = () => {
+  prompt([
+    {
+      type: 'list',
+      message: 'What would you like to do?',
+      name: 'type',
+      choices: [
+        'View All Departments',
+        'View All Roles',
+        'View All Employees',
+        'Add Department',
+        'Add Role',
+        'Add Employee',
+        'Update Employee',
+        'Exit',
+      ],
     }
-  })
-  .then(logTable)
-  // Need to reinitialize the question prompts again somehow
-  
+  ])
+    .then((answer) => {
+      if (answer.type === 'View All Departments') {
+        return viewAllDepartments().then(logTable).then(init)
+      } else if (answer.type === 'View All Roles') {
+        return viewAllRoles().then(logTable).then(init)
+      } else if (answer.type === 'View All Employees') {
+        return viewAllEmployees().then(logTable).then(init)
+      } else if (answer.type === 'Add Department') {
+        return addDepartment().then(init)
+      } else if (answer.type === 'Add Role') {
+        return addRole().then(init)
+      } else {
+        process.exit();
+      }
+    })
+
+};
+// Need to reinitialize the type prompts again somehow
+
+init();

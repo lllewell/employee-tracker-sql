@@ -8,7 +8,7 @@ CREATE TABLE departments (
   name VARCHAR(30) UNIQUE NOT NULL
 );
 
-CREATE TABLE role (
+CREATE TABLE roles (
   id SERIAL PRIMARY KEY,
   title VARCHAR(30) UNIQUE NOT NULL,
   salary DECIMAL NOT NULL,
@@ -23,7 +23,6 @@ CREATE TABLE employees (
   last_name VARCHAR(30) UNIQUE NOT NULL,
   role_id INTEGER NOT NULL,
   manager_id INTEGER,
-  FOREIGN KEY (role_id) REFERENCES role (id)
-  -- Not sure how to write this with two foreign keys and a self reference?
-  FOREIGN key (manager_id) REFERENCES employee (id)
+  FOREIGN KEY (role_id) REFERENCES roles (id),
+  FOREIGN key (manager_id) REFERENCES employees (id)
 );
