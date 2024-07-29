@@ -21,6 +21,16 @@ const viewAllDepartments = () => {
     return pool.query('SELECT * FROM departments');
 };
 
+// const selectViewAllDepartments = () => {
+//   const question = {
+//     type: 'list',
+//     message: 'What would you like to do?',
+//     name: 'department',
+//     choices: ['View All Departments', 'View All Roles', 'View All Employees', 'Add A Department', 'Add A Role', 'Add An Employee', 'Updated An Employee'],
+//   };
+//   return prompt(question);
+// }
+
 const viewAllRoles = () => {
   return pool.query('SELECT * FROM role');
 };
@@ -55,15 +65,19 @@ prompt([
   {
     type: 'list',
     message: 'What would you like to do?',
-    name: 'initial',
+    name: 'question',
     choices: ['View All Departments', 'View All Roles', 'View All Employees', 'Add A Department', 'Add A Role', 'Add An Employee', 'Updated An Employee'],
   }
 ])
   .then((answer) => {
-    if (answer.initial === 'View All Departments'){
+    if (answer.question === 'View All Departments'){
       return viewAllDepartments()
-    } else if (answer.inital === 'View All Roles'){
+    } else if (answer.question === 'View All Roles'){
       return viewAllRoles()
+    } else if (answer.question === 'View All Employees'){
+      return viewAllEmployees()
     }
   })
   .then(logTable)
+  // Need to reinitialize the question prompts again somehow
+  
