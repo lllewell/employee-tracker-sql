@@ -17,8 +17,6 @@ console.log('Connected to the courses_db database!')
 
 pool.connect();
 
-const prompt = createPromptModule();
-
 const viewAllDepartments = () => {
     return pool.query('SELECT id, name FROM departments');
 };
@@ -55,12 +53,13 @@ const logTable = (result) => {
 
 prompt([
   {
-    type:
-    name:
-    message:
-  },
+    type: 'list',
+    name: 'initial',
+    choices: ['View All Departments', 'View All Roles', 'View All Employees', 'Add A Department', 'Add A Role', 'Add An Employee', 'Updated An Employee'],
+    message: 'What would you like to do?',
+  }
 ])
-  .then((answers) => {
-    console.log(answers);
+  .then((answer) => {
+    console.log(answer.initial);
   })
   .then()
