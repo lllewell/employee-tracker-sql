@@ -54,9 +54,9 @@ const logTable = (result) => {
 prompt([
   {
     type: 'list',
+    message: 'What would you like to do?',
     name: 'initial',
     choices: ['View All Departments', 'View All Roles', 'View All Employees', 'Add A Department', 'Add A Role', 'Add An Employee', 'Updated An Employee'],
-    message: 'What would you like to do?',
   }
 ])
   .then((answer) => {
