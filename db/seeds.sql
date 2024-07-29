@@ -1,7 +1,7 @@
 -- Use to pre-populate my database with employees and info
 INSERT INTO departments (name)
 VALUES ('Accounting'),
-       ('Administrative'),
+       ('Administration'),
        ('IT'),
        ('Marketing'),
        ('Social Media');
