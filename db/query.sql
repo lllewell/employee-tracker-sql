@@ -5,8 +5,8 @@ JOIN departments ON role.department_id = departments.id;
 
 SELECT *
 FROM employees
-JOIN role ON employees.role_id = role.id;
+JOIN roles ON employees.role_id = roles.id;
 
--- SELECT *
--- FROM employee
--- JOIN employee on employee.manager_id = employee.id;
+SELECT *
+FROM employees
+JOIN employees on employees.manager_id = employees.id;

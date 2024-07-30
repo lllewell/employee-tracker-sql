@@ -12,7 +12,7 @@ const client = new Client(
     host: 'localhost',
     database: 'employees_db'
   },
-  console.log('Connected to the courses_db database!')
+  console.log('Connected to the employees_db database!')
 )
 
 client.connect();
@@ -21,15 +21,6 @@ const viewAllDepartments = () => {
   return client.query('SELECT * FROM departments');
 };
 
-// const selectViewAllDepartments = () => {
-//   const type = {
-//     type: 'list',
-//     message: 'What would you like to do?',
-//     name: 'department',
-//     choices: ['View All Departments', 'View All Roles', 'View All Employees', 'Add A Department', 'Add A Role', 'Add An Employee', 'Updated An Employee'],
-//   };
-//   return prompt(type);
-// }
 
 const viewAllRoles = () => {
   return client.query('SELECT * FROM roles');
