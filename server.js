@@ -41,7 +41,7 @@ const addDepartment = () => {
       `INSERT INTO departments (name) VALUES ($1)`,
       [answer.name]
     );
-  });
+  }).then(viewAllDepartments)
 };
 
 const addRole = () => {
@@ -60,7 +60,7 @@ const addRole = () => {
     }
   ]).then((answer) => {
     return client.query(`INSERT INTO roles (title, salary, department_id) VALUES ($1, $2, $3)`, [answer.role, answer.salary, answer.department]);
-  })
+  }).then(viewAllRoles)
 };
 
 const addEmployee = () => {
@@ -79,7 +79,7 @@ const addEmployee = () => {
     }
   ]).then((answer) => {
     return client.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ($1, $2, $3, $4)`, [answer.first_name, answer.last_name, answer.role_id, answer.manager_id]);
-  })
+  }).then(viewAllEmployees)
 };
 
 const updateEmployee = () => {
@@ -91,7 +91,7 @@ const updateEmployee = () => {
     }
   ]).then((answer) => {
     return client.query(`UPDATE FROM employee WHERE id = $1`, [answer.updateName]);
-  })
+  }).then(viewAllEmployees)
 
 };
 
@@ -127,11 +127,11 @@ const init = () => {
       } else if (answer.type === 'Add Department') {
         return addDepartment().then(viewAllDepartments).then(logTable).then(init)
       } else if (answer.type === 'Add Role') {
-        return addRole().then(viewAllRoles).then(init)
+        return addRole().then(viewAllRoles).then(logTable).then(init)
       } else if (answer.type === 'Add Employee') {
-        return addEmployee().then(viewAllEmployees).then(init)
+        return addEmployee().then(viewAllEmployees).then(logTable).then(init)
       } else if (answer.type === 'Update Employee') {
-        return updateEmployee().then(viewAllEmployees).then(init)
+        return updateEmployee().then(viewAllEmployees).then(logTable).then(init)
       } else {
         process.exit();
       }

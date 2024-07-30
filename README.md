@@ -19,4 +19,4 @@ Using the `npm start` command the user will be presented with prompts to choose 
 ## Links
 [gitHub-repo](https://github.com/lllewell/employee-tracker-sql)
 
-[walkthrough-video](https://drive.google.com/file/d/1Jd7nLQyFuByO4UNdA7JqDR-D1dfPIkza/view?usp=sharing)
+[walkthrough-video](https://drive.google.com/file/d/1sabfGVV3XBBJBDpNy_YeSd81JxtWCjcv/view?usp=sharing)
