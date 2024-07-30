@@ -38,7 +38,7 @@ const addDepartment = () => {
     }
   ]).then((answer) => {
     return client.query(
-      `INSERT INTO departments (named) VALUES ($1)`,
+      `INSERT INTO departments (name) VALUES ($1)`,
       [answer.name]
     );
   });
@@ -125,13 +125,13 @@ const init = () => {
       } else if (answer.type === 'View All Employees') {
         return viewAllEmployees().then(logTable).then(init)
       } else if (answer.type === 'Add Department') {
-        return addDepartment().then(logTable).then(init)
+        return addDepartment().then(viewAllDepartments).then(logTable).then(init)
       } else if (answer.type === 'Add Role') {
-        return addRole().then(logTable).then(init)
+        return addRole().then(viewAllRoles).then(init)
       } else if (answer.type === 'Add Employee') {
-        return addEmployee().then(logTable).then(init)
+        return addEmployee().then(viewAllEmployees).then(init)
       } else if (answer.type === 'Update Employee') {
-        return updateEmployee().then(logTable).then(init)
+        return updateEmployee().then(viewAllEmployees).then(init)
       } else {
         process.exit();
       }

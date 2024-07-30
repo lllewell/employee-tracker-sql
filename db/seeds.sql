@@ -1,5 +1,5 @@
 -- Use to pre-populate my database with employees and info
-INSERT INTO departments (named)
+INSERT INTO departments (name)
 VALUES ('Accounting'),
        ('Administration'),
        ('IT'),
