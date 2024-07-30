@@ -13,10 +13,10 @@ This program uses the `pg` & `inquirer@8.2.4` dependencies.
 
 Using the `npm start` command the user will be presented with prompts to choose from. Depending on what the user wants to do their can view the database tables, add/update specific table values, and be presented with the updated tables.
 
-![svg-cli-screenshot](images/svg-cli.png)
-![svg-generated](images/svg-generated.png)
+![tracker-screenshot-cli](images/tracker-screenshot-1.png)
+![tracker-screenshot](images/tracker-screenshot-2.png)
 
 ## Links
-[gitHub-repo](https://github.com/lllewell/svg-generator)
+[gitHub-repo](https://github.com/lllewell/employee-tracker-sql)
 
-[walkthrough-video](https://drive.google.com/file/d/1bqJchSwuwWiRkMd7PX5vwDsHT6-yJLuM/view?usp=sharing)
+[walkthrough-video](https://drive.google.com/file/d/1Jd7nLQyFuByO4UNdA7JqDR-D1dfPIkza/view?usp=sharing)
