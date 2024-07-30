@@ -31,13 +31,15 @@ const viewAllEmployees = () => {
 };
 
 const addDepartment = () => {
-  return prompt({
-    message: 'What is the name of your department?',
-    name: 'name',
-  }).then((answer) => {
+  return prompt([
+    {
+      message: 'What is the name of your department?',
+      name: 'name',
+    }
+  ]).then((answer) => {
     return client.query(
-      `INSERT INTO departments (name) VALUES ($1)`,
-      [answer.name],
+      `INSERT INTO departments (named) VALUES ($1)`,
+      [answer.name]
     );
   });
 };
